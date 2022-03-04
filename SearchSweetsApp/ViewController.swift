@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 // JSONの構造
 struct ResultJson: Codable {
     let item: [ItemJson]?
@@ -18,9 +19,14 @@ struct ItemJson: Codable {
 }
 private var okashiList: [ItemJson] = []
 
-class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, SFSafariViewControllerDelegate {
     @IBOutlet private weak var searchText: UISearchBar!
     @IBOutlet private weak var tableView: UITableView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+    }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
@@ -77,5 +83,16 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSour
         }
 
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 選択解除
+        tableView.deselectRow(at: indexPath, animated: true)
+        let safariViewController = SFSafariViewController(url: okashiList[indexPath.row].url)
+        // 通知先を自身にする
+        safariViewController.delegate = self
+        present(safariViewController, animated: true, completion: nil)
+    }
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        dismiss(animated: true, completion: nil)
     }
 }
