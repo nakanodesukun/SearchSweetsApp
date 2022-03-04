@@ -13,6 +13,7 @@
 		958023BD27D0A73300B993A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 958023BB27D0A73300B993A4 /* Main.storyboard */; };
 		958023BF27D0A73400B993A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 958023BE27D0A73400B993A4 /* Assets.xcassets */; };
 		958023C227D0A73400B993A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 958023C027D0A73400B993A4 /* LaunchScreen.storyboard */; };
+		95EDB88C27D1BD1500D60B3B /* CustomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EDB88B27D1BD1500D60B3B /* CustomeCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		958023BE27D0A73400B993A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		958023C127D0A73400B993A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		958023C327D0A73400B993A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95EDB88B27D1BD1500D60B3B /* CustomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				958023B527D0A73300B993A4 /* AppDelegate.swift */,
 				958023B727D0A73300B993A4 /* SceneDelegate.swift */,
 				958023B927D0A73300B993A4 /* ViewController.swift */,
+				95EDB88B27D1BD1500D60B3B /* CustomeCell.swift */,
 				958023BB27D0A73300B993A4 /* Main.storyboard */,
 				958023BE27D0A73400B993A4 /* Assets.xcassets */,
 				958023C027D0A73400B993A4 /* LaunchScreen.storyboard */,
@@ -77,6 +80,7 @@
 				958023AE27D0A73300B993A4 /* Sources */,
 				958023AF27D0A73300B993A4 /* Frameworks */,
 				958023B027D0A73300B993A4 /* Resources */,
+				958023C927D0BE3D00B993A4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -133,11 +137,32 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		958023C927D0BE3D00B993A4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		958023AE27D0A73300B993A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95EDB88C27D1BD1500D60B3B /* CustomeCell.swift in Sources */,
 				958023BA27D0A73300B993A4 /* ViewController.swift in Sources */,
 				958023B627D0A73300B993A4 /* AppDelegate.swift in Sources */,
 				958023B827D0A73300B993A4 /* SceneDelegate.swift in Sources */,
