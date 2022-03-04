@@ -8,26 +8,19 @@
 import UIKit
 // JSONの構造
 struct ResultJson: Codable {
-    let item: [ItmeJson]?
+    let item: [ItemJson]?
 }
-struct ItmeJson: Codable {
-    let name: String?
-    let maker: String?
-    let url: URL?
-    let image: URL?
+struct ItemJson: Codable {
+    let name: String
+    let maker: String
+    let url: URL
+    let image: URL
 }
-var okashiList: [ResultJson] = []
+private var okashiList: [ItemJson] = []
 
 class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource {
-
     @IBOutlet private weak var searchText: UISearchBar!
     @IBOutlet private weak var tableView: UITableView!
-
-    // 画面表示の際に１回しか呼ばれない
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
@@ -49,15 +42,20 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSour
             if let error = error {
                 return print(error.localizedDescription)
             }
-             // dataとresponseが取れなかったら早期リターン&オプショナルバインディングの役割
+             // dataとresponseが取得できなかったらこれ以上処理を進めたくないので早期リターンする。
         guard let response = response, let data = data else {
                 return
             }
 
             do {
-                let json = try JSONDecoder().decode(ResultJson.self, from: data)
-                okashiList.append(json)
-//                self.tableView.reloadData()
+                let jsons = try JSONDecoder().decode(ResultJson.self, from: data)
+                // 二次元配列となっているので一次元配列に変換して値を取り出しやすくする。
+                jsons.item.map { json in
+                    okashiList += json
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
             } catch {
                 print(error.localizedDescription)
             }
@@ -72,7 +70,12 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSour
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell1", for: indexPath) as? CustomCell else {
              fatalError()
         }
-//        cell.configure(titleImage: , titleLabel: <#T##String#>)
+        cell.configureTitle(titleName: okashiList[indexPath.row].name)
+        if let imageData = try? Data(contentsOf: okashiList[indexPath.row].image) {
+                                                            // オプショナルの値が入って来ることがないので強制アンラップして良い？？
+            cell.coufiureImage(imageData: UIImage(data: imageData)!)
+        }
+
         return cell
     }
 }

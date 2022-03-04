@@ -9,7 +9,11 @@ import UIKit
 class CustomCell: UITableViewCell {
     @IBOutlet private weak var titleImage: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
-    func configure(titleImage: String, titleLabel: String) {
-        
+    // IBOutletをカプセル化したいのでメソッドを作る
+    func coufiureImage(imageData: UIImage) {
+        titleImage.image = imageData
+    }
+    func configureTitle(titleName: String) {
+        titleLabel.text = titleName
     }
 }
