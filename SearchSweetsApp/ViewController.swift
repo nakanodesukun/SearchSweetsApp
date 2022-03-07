@@ -58,6 +58,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSour
                 // 二次元配列となっているので一次元配列に変換して値を取り出しやすくする。
                 jsons.item.map { json in
                     okashiList += json
+                    print( json)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
